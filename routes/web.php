@@ -1,8 +1,6 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\pageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [pageController::class, 'home'])->name('home');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-    
+require __DIR__.'/auth.php';
