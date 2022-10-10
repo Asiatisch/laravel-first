@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,19 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/user/{id}' , [UserController::class, 'show']);
+
+                   /*  NoteCrontroller */
+Route::get('/notes', [NoteController::class, 'index']);
+Route::get('/notes/create', [NoteController::class, 'create']);
+Route::get('/notes', [NoteController::class, 'store']);
+
+// This line create a Route every function in the Note Reseource Controller
+Route::resources('/notes', NoteController::class, 'store');
+
+// This line create a Route every Function in the Note Resource Controller
+Route::resources('/notes', NoteController::class,)->middleware(['auth']);
+
 
 require __DIR__.'/auth.php';
