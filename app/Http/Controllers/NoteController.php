@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -13,10 +14,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-         // Fetch notes in order of when they were last updated - latest updated returned first
-         $notes = Note::where('user_id', Auth::id())->latest('updated_at')->paginate(5);
-         //   dd($notes);
-            return view('notes.index')->with('notes', $notes);
+        $userId = Auth::id();
+        $notes = note::where('users_id', $usersId)->get();
+        dd($notes);
     }
 
     /**
